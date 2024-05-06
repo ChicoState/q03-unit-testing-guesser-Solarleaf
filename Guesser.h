@@ -24,14 +24,14 @@ private:
   */
   unsigned int distance(string guess);
 
-public:
+public: // ALL public need to remain the same
   /*
     Constructor requires that the secret phrase is provided its value as
     an argument. This secret will not change for the lifespan of an instance
     of any Guesser object and must have a length of 32 characters or less,
     otherwise, it will be truncated at that length.
   */
-  Guesser(string secret);
+  Guesser(string secret); // ALL public need to remain the same
 
   /*
     Determines and returns whether the provided guess matches the secret
@@ -44,7 +44,7 @@ public:
     determining how many guesses are remaining and the distance between a guess
     and the secret.
   */
-  bool match(string guess);
+  bool match(string guess); // ALL public need to remain the same
 
   /*
     Returns the number of guesses remaining. A Guesser object allows up to
@@ -53,8 +53,6 @@ public:
     again acknowledge a correct match. However, whenever an unlocked secret
     is guessed with a true match, the guesses remaining reset to three (3).
   */
-  unsigned int remaining();
-
-
+  unsigned int remaining(); // ALL public need to remain the same
 };
 #endif

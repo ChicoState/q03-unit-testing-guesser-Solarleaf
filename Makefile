@@ -7,7 +7,7 @@ CPPFLAGS += --coverage -isystem $(GTEST_DIR)/include -std=c++17
 CXXFLAGS += -g -pthread
 
 # All tests produced by this Makefile.
-TESTS = PasswordTest
+TESTS = GuesserTest
 
 # All Google Test headers. Adjust only if you moved the subdirectory
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
@@ -38,12 +38,12 @@ gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
 # Builds the class and associated tests
-Password.o : Password.cpp Password.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Password.cpp
+Guesser.o : Guesser.cpp Guesser.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Guesser.cpp
 
-PasswordTest.o : PasswordTest.cpp \
-                     Password.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c PasswordTest.cpp
+GuesserTest.o : GuesserTest.cpp \
+                     Guesser.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c GuesserTest.cpp
 
-PasswordTest : Password.o PasswordTest.o gtest_main.a
+GuesserTest : Guesser.o GuesserTest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

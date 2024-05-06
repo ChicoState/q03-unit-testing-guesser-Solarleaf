@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/WybXpzNk)
 # UnitTestPractice
 
 ## Getting Started
@@ -18,3 +19,9 @@ within the container. If you change the code (and not the container
 configuration), you only need to repeat this command.
 
 `docker run -v "$(pwd)":/usr/src -it cpp-container`
+
+To run commands within the container interactively, use:
+
+`docker run -v "$(pwd)":/usr/src -it cpp-container sh`
+
+and then type commands (e.g. `make`, `./GuesserTest`, `gcov`, etc.) at the `#` prompt.

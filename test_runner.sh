@@ -2,4 +2,5 @@
 
 make clean
 make
-./PasswordTest
+./GuesserTest
+gcov -rbc Guesser.cpp
