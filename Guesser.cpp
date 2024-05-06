@@ -1,6 +1,8 @@
 #include "Guesser.h"
 #include <string>
 
+#include <iostream>
+
 using std::string;
 
 /*
@@ -14,8 +16,33 @@ using std::string;
   the secret; in other words, if m_secret has a 10 characters and the guess
   has 100, the distance is 10.
 */
-unsigned int Guesser::distance(string guess){
-  return 0;
+
+// PRIVATE
+unsigned int Guesser::distance(string guess)
+{
+  // Checks difference in length
+  int counter{0};
+  size_t l_guess = guess.length();
+  size_t l_secret = m_secret.length();
+  counter = abs(l_guess - l_secret);
+  if (l_guess > l_secret)
+  {
+    guess = guess.substr(0, l_secret);
+  }
+  // Checks difference in character
+  // The check for both makes it so if the guess is shorter not double penalized for diff letters
+  for (size_t k = 0; k < l_guess && k < l_secret; k++)
+  {
+    if (m_secret[k] == guess[k])
+    {
+      continue;
+    }
+    ++counter;
+  }
+  if(counter > l_secret) {
+    counter = l_secret;
+  }
+  return counter;
 }
 
 /*
@@ -24,8 +51,11 @@ unsigned int Guesser::distance(string guess){
   of any Guesser object and must have a length of 32 characters or less,
   otherwise, it will be truncated at that length.
 */
-Guesser::Guesser(string secret){
 
+Guesser::Guesser(string secret){
+  m_remaining = 0;
+  m_secret = secret;
+  // m_secret = "AabB1234!@#keazZ\naa";
 }
 
 /*
@@ -40,7 +70,27 @@ Guesser::Guesser(string secret){
   and the secret.
 */
 bool Guesser::match(string guess){
-  return true;
+  // We don't want a count down because m_remaining is an unsigned, so you could have an overflow
+  // Which would give you a lot of guesses
+
+  if (remaining() >= 3)
+  {
+    return false;
+  }
+  else if (guess == m_secret)
+  {
+    m_remaining = 0;
+    return true;
+  }
+  // This is the null check and the overflow check
+  int temp = remaining();
+  m_remaining += distance(guess);
+  if (temp >= m_remaining || temp < 0)
+  {
+    m_remaining = 5;
+    // std::cerr<<"Something went wrong\n";
+  }
+  return false;
 }
 
 /*
@@ -51,6 +101,6 @@ bool Guesser::match(string guess){
   reset to three (3).
 */
 unsigned int Guesser::remaining(){
-  return 0;
+  return m_remaining;
 }
 
